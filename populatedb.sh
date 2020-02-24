@@ -1,0 +1,1 @@
+mvn -X  sql:execute@populatedb

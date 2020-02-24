@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>WEBPRAK</groupId>
+    <artifactId>WEBPRAK</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.2.9</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>createtables</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://10.10.10.137:5432/crm</url>
+                            <username>postgres</username>
+                            <password>2341899m</password>
+                            <autocommit>false</autocommit>
+                            <fileset>
+                                <!-- at home -->
+                                <basedir>${project.basedir}/database</basedir>
+                                <includes>
+                                    <!-- tables -->
+                                    <include>createtables.sql</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>createdb</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://10.10.10.137:5432/postgres</url>
+                            <username>postgres</username>
+                            <password>2341899m</password>
+                            <autocommit>true</autocommit>
+                            <fileset>
+                                <!-- at home -->
+                                <basedir>${project.basedir}/database</basedir>
+                                <includes>
+                                    <!-- tables -->
+                                    <include>createdb.sql</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>populatedb</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://10.10.10.137:5432/crm</url>
+                            <username>postgres</username>
+                            <password>2341899m</password>
+                            <autocommit>false</autocommit>
+                            <fileset>
+                                <!-- at home -->
+                                <basedir>${project.basedir}/database</basedir>
+                                <includes>
+                                    <!-- tables -->
+                                    <include>populatedb.sql</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>dropdb</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>jdbc:postgresql://10.10.10.137:5432/postgres</url>
+                            <username>postgres</username>
+                            <password>2341899m</password>
+                            <autocommit>true</autocommit>
+                            <fileset>
+                                <!-- at home -->
+                                <basedir>${project.basedir}/database</basedir>
+                                <includes>
+                                    <!-- tables -->
+                                    <include>dropdb.sql</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
