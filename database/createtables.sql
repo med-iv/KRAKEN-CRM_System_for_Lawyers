@@ -6,7 +6,7 @@
     CREATE TYPE EDUC AS ENUM ('school', 'bachelor', 'master', 'PHD');
 
     CREATE TABLE Employees (
-      Employee_id INTEGER PRIMARY KEY,
+      Employee_id BIGINT PRIMARY KEY,
       Name VARCHAR(50) NOT NULL,
       Middle_name VARCHAR(50),
       Last_name VARCHAR(50) NOT NULL,
@@ -16,25 +16,25 @@
       Education_level EDUC,
       Position POSIT NOT NULL,
       Login VARCHAR(50) UNIQUE NOT NULL,
-      Password CHAR(64) NOT NULL
+      Password VARCHAR(64) NOT NULL
     );
 
     CREATE TABLE Services (
-      Service_id INTEGER PRIMARY KEY,
+      Service_id BIGINT PRIMARY KEY,
       Service_name VARCHAR(50) UNIQUE NOT NULL,
       Description TEXT
     );
 
     CREATE TABLE History (
-      Event_id INTEGER PRIMARY KEY,
-      Service_id INTEGER REFERENCES Services (Service_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+      Event_id BIGINT PRIMARY KEY,
+      Service_id BIGINT REFERENCES Services (Service_id) ON DELETE RESTRICT ON UPDATE CASCADE,
       Date DATE,
       Description TEXT,
       Contract TEXT
     );
 
     CREATE TABLE Clients (
-      Client_id INTEGER PRIMARY KEY,
+      Client_id BIGINT PRIMARY KEY,
       Name VARCHAR(50),
       Middle_name VARCHAR(50),
       Last_name VARCHAR(50) NOT NULL,
@@ -44,15 +44,21 @@
     );
 
 
-    CREATE TABLE History_clients (
-      Client_id INTEGER REFERENCES Clients (Client_id) ON DELETE CASCADE ON UPDATE CASCADE,
-      Event_id INTEGER REFERENCES History (Event_id) ON DELETE CASCADE ON UPDATE CASCADE,
-      PRIMARY KEY(Client_id, Event_id)
+    CREATE TABLE Clients_history (
+      clients_Client_id BIGINT REFERENCES Clients (Client_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      histories_Event_id BIGINT REFERENCES History (Event_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      PRIMARY KEY(clients_Client_id, histories_Event_id)
     );
 
-    CREATE TABLE History_employees (
-      Event_id INTEGER REFERENCES History (Event_id) ON DELETE CASCADE ON UPDATE CASCADE,
-      Employee_id INTEGER REFERENCES Employees (Employee_id) ON DELETE CASCADE ON UPDATE CASCADE,
-      PRIMARY KEY(Event_id, Employee_id)
+    CREATE TABLE Employees_history (
+      histories_Event_id BIGINT REFERENCES History (Event_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      employees_Employee_id BIGINT REFERENCES Employees (Employee_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      PRIMARY KEY(histories_Event_id, employees_Employee_id)
     );
+
+    CREATE SEQUENCE Client_id_seq;
+    CREATE SEQUENCE Service_id_seq;
+    CREATE SEQUENCE History_id_seq;
+    CREATE SEQUENCE Employee_id_seq;
+
   COMMIT;
