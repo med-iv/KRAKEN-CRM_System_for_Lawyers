@@ -1,8 +1,8 @@
-package dbService.dataSets;
+package main.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,15 +15,15 @@ public class History implements Serializable {
     @Column(name = "Event_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_id_generator")
     @SequenceGenerator(name="history_id_generator", sequenceName = "History_id_seq", allocationSize=1)
-    private long event_id;
+    private long eventId;
 
-    @ManyToOne(targetEntity = Service.class)
-    @JoinColumn(name = "Service_id", referencedColumnName = "Service_id")
-    private long service_id;
+    //@ManyToOne(targetEntity = Service.class)
+    //@JoinColumn(name = "Service_id", referencedColumnName = "Service_id")
+    @Column(name = "Service_id")
+    private long serviceId;
 
     @Column(name = "Date")
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "Description")
     private String description;
@@ -42,36 +42,32 @@ public class History implements Serializable {
     public History() {
     }
 
-    public History(long event_id, long service_id, Date date, String description,
+    public History(long eventId, long serviceId, LocalDate date, String description,
                    String contract) {
-        this.event_id = event_id;
-        this.service_id = service_id;
+        this.eventId = eventId;
+        this.serviceId = serviceId;
         this.date = date;
         this.description = description;
         this.contract = contract;
     }
 
     public long getHistoryId() {
-        return event_id;
-    }
-
-    public void setHistoryId(long event_id) {
-        this.event_id = event_id;
+        return eventId;
     }
 
     public long getServiceId() {
-        return service_id;
+        return serviceId;
     }
 
-    public void setServiceId(long service_id) {
-        this.service_id = service_id;
+    public void setServiceId(long serviceId) {
+        this.serviceId = serviceId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void  setDate(Date date) {
+    public void  setDate(LocalDate date) {
         this.date = date;
     }
 

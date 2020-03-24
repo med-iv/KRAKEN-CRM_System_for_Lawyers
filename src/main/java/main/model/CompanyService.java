@@ -1,50 +1,57 @@
-package dbService.dataSets;
+package main.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Table(name = "Services")
-public class Service implements Serializable {
+public class CompanyService implements Serializable {
 
     @Id
     @Column(name = "Service_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_id_generator")
     @SequenceGenerator(name="service_id_generator", sequenceName = "Service_id_seq", allocationSize=1)
-    private long service_id;
+    private long serviceId;
 
     @Column(name = "Service_name")
-    private String service_name;
+    private String serviceName;
 
     @Column(name = "Description")
     private String description;
 
+    @OneToMany
+    @JoinColumn(name = "service_id")
+    private List<History> histories = new ArrayList<>();;
 
 
-    public Service() {
+
+
+    public CompanyService() {
     }
 
-    public Service(long service_id, String service_name, String description) {
-        this.service_id = service_id;
-        this.service_name = service_name;
+    public CompanyService(long serviceId, String serviceName, String description) {
+        this.serviceId = serviceId;
+        this.serviceName = serviceName;
         this.description = description;
     }
 
     public long getServiceId() {
-        return service_id;
+        return serviceId;
     }
 
-    public void setServiceId(long service_id) {
-        this.service_id = service_id;
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getServiceName() {
-        return service_name;
+        return serviceName;
     }
 
-    public void setServiceName(String service_name) {
-        this.service_name = service_name;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public String getDescription() {

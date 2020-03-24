@@ -1,4 +1,4 @@
-package dbService.dataSets;
+package main.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -48,6 +48,9 @@ public class Employee implements Serializable {
     @Column(name = "Password", nullable = false, length = 64)
     private String password;
 
+    @Column(name = "User_role", nullable = false, length = 64)
+    private String user_role;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<History> histories = new ArrayList<History>();
 
@@ -69,14 +72,11 @@ public class Employee implements Serializable {
         this.position = position;
         this.login = login;
         this.password = password;
+        this.user_role = user_role;
     }
 
     public long getEmployeeId() {
         return employee_id;
-    }
-
-    public void setEmployeeId(long employee_id) {
-        this.employee_id = employee_id;
     }
 
     public String getName() {
@@ -123,7 +123,7 @@ public class Employee implements Serializable {
         return email;
     }
 
-    public void setEmail(String aemail) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -140,7 +140,7 @@ public class Employee implements Serializable {
     }
 
     public void setPosition(Position position) {
-        this.position= position;
+        this.position = position;
     }
 
     public String getLogin() {
@@ -157,6 +157,22 @@ public class Employee implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserRole() {
+        return user_role;
+    }
+
+    public void setUserRole(String user_role) {
+        this.user_role = user_role;
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
 
 }

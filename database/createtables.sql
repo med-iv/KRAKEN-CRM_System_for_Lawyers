@@ -16,7 +16,8 @@
       Education_level EDUC,
       Position POSIT NOT NULL,
       Login VARCHAR(50) UNIQUE NOT NULL,
-      Password VARCHAR(64) NOT NULL
+      Password VARCHAR(64) NOT NULL,
+      User_role VARCHAR(50) DEFAULT 'USER' NOT NULL
     );
 
     CREATE TABLE Services (
@@ -44,13 +45,13 @@
     );
 
 
-    CREATE TABLE Clients_history (
+    CREATE TABLE Clients_histories (
       clients_Client_id BIGINT REFERENCES Clients (Client_id) ON DELETE CASCADE ON UPDATE CASCADE,
       histories_Event_id BIGINT REFERENCES History (Event_id) ON DELETE CASCADE ON UPDATE CASCADE,
       PRIMARY KEY(clients_Client_id, histories_Event_id)
     );
 
-    CREATE TABLE Employees_history (
+    CREATE TABLE Employees_histories (
       histories_Event_id BIGINT REFERENCES History (Event_id) ON DELETE CASCADE ON UPDATE CASCADE,
       employees_Employee_id BIGINT REFERENCES Employees (Employee_id) ON DELETE CASCADE ON UPDATE CASCADE,
       PRIMARY KEY(histories_Event_id, employees_Employee_id)

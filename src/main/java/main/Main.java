@@ -1,25 +1,14 @@
 package main;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
-import dbService.DBException;
-import dbService.DBService;
-import dbService.dataSets.Client;
 
-
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        DBService dbService = new DBService();
-        //dbService.printConnectInfo();
-
-        try {
-            long clientId = dbService.addClient("Вася", "", "Царев", "", "", "");
-            System.out.println("Added clientId: " + clientId);
-
-            Client client = dbService.getClient(clientId);
-            System.out.println("Client: " + client);
-
-        } catch (DBException e) {
-            e.printStackTrace();
-        }
+        ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
+        //System.out.println(context);
     }
 }

@@ -1,4 +1,4 @@
-package dbService.dataSets;
+package main.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -58,10 +58,6 @@ public class Client implements Serializable {
         return client_id;
     }
 
-    public void setClientId(long client_id) {
-        this.client_id = client_id;
-    }
-
     public String getName() {
         return name;
     }
@@ -108,6 +104,14 @@ public class Client implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
 
 

@@ -1,4 +1,4 @@
-package dbService.dataSets;
+package main.model;
 
 public enum Position {
     lawyer,
