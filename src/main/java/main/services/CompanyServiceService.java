@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +51,17 @@ public class CompanyServiceService {
         return Optional.of(id);
     }
 
-    public JSONObject getAllServices() {
-        JSONObject jo = new JSONObject();
+    public Map<String, ArrayList<String>> getAllServices() {
+        Map<String, ArrayList<String>> jo = new HashMap<String, ArrayList<String>>();
         serviceRepository.findAll().forEach((service) -> {
-            List<String> params = new ArrayList<>();
+            ArrayList<String> params = new ArrayList<>();
             Long serviceId = service.getServiceId();
             CompanyService companyService = serviceRepository.findById(serviceId).get();
             String serviceName = companyService.getServiceName();
             String description = service.getDescription();
             params.add(serviceName);
             params.add(description);
-            jo.put(Long.toString(service.getServiceId()), new JSONArray(params));
+            jo.put(Long.toString(service.getServiceId()), params);
         });
         return jo;
     }

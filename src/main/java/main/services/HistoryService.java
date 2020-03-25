@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class HistoryService {
@@ -62,20 +64,20 @@ public class HistoryService {
         return Optional.of(id);
     }
 
-    public JSONObject getAllEvents() {
-        JSONObject jo = new JSONObject();
+    public Map<String, ArrayList<String>> getAllEvents() {
+        Map<String, ArrayList<String>> jo = new HashMap<String, ArrayList<String>>();
         historyRepository.findAll().forEach((event) -> {
-            List<String> params = new ArrayList<>();
+            ArrayList<String> params = new ArrayList<>();
             Long serviceId = event.getServiceId();
             CompanyService companyService = companyServiceRepository.findById(serviceId).get();
             String serviceName = companyService.getServiceName();
             LocalDate date = event.getDate();
-            String contract = event.getContract();
+            String description = event.getDescription();
             params.add(serviceName);
             params.add(date.toString());
-            params.add(contract);
-            jo.put(Long.toString(event.getHistoryId()), new JSONArray(params));
-        });
+            params.add(description);
+            jo.put(Long.toString(event.getHistoryId()), params);
+        }); 
         return jo;
     }
 

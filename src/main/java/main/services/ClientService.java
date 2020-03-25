@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class ClientService {
@@ -99,12 +101,35 @@ public class ClientService {
         return jo;
     }
 
-    public JSONObject getAllClients() {
-        JSONObject jo = new JSONObject();
+    public Map<String, ArrayList<String>> getAllClients() {
+        Map<String, ArrayList<String>> jo = new HashMap<String, ArrayList<String>>();
         clientRepository.findAll().forEach((client) -> {
+            ArrayList<String> params = new ArrayList<>();
             String name = client.getName();
+            String middle_name = client.getMiddleName();
+            if (middle_name == null) {
+                middle_name = "";
+            }
             String last_name = client.getLastName();
-            jo.put(Long.toString(client.getClientId()), name + " " + last_name);
+            String phone_number = client.getPhoneNumber();
+            if (phone_number == null) {
+                phone_number = "";
+            }
+            String email = client.getEmail();
+            if (email == null) {
+                email = "";
+            }
+            String address = client.getAddress();
+            if (address == null){
+                address = "";
+            }
+            params.add(name);
+            params.add(middle_name);
+            params.add(last_name);
+            params.add(phone_number);
+            params.add(email);
+            params.add(address);
+            jo.put(Long.toString(client.getClientId()), params);
         });
         return jo;
     }

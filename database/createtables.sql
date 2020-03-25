@@ -13,8 +13,8 @@
       Phone_number VARCHAR(50),
       Address TEXT,
       Email VARCHAR(50),
-      Education_level EDUC,
-      Position POSIT NOT NULL,
+      Education_level VARCHAR(50),
+      Position VARCHAR(50),
       Login VARCHAR(50) UNIQUE NOT NULL,
       Password VARCHAR(64) NOT NULL,
       User_role VARCHAR(50) DEFAULT 'USER' NOT NULL
@@ -61,5 +61,10 @@
     CREATE SEQUENCE Service_id_seq;
     CREATE SEQUENCE History_id_seq;
     CREATE SEQUENCE Employee_id_seq;
+
+    alter sequence Client_id_seq restart with 10;
+    alter sequence Service_id_seq restart with 10;
+    alter sequence History_id_seq restart with 10;
+    alter sequence Employee_id_seq restart with 10;
 
   COMMIT;
