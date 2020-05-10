@@ -15,6 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class EmployeeService {
@@ -25,7 +27,7 @@ public class EmployeeService {
 
     public Long addEmployee(String name, String middle_name, String last_name,
                           String address, String phone_number, String email,
-                            String login, Education education, Position position,
+                            String login, String education, String position,
                             String password, String role) {
         Employee employee = new Employee();
         employee.setName(name);
@@ -80,11 +82,11 @@ public class EmployeeService {
         }
 
         if (jo.has("education")) {
-            employee.setEducation(Education.valueOf(jo.getString("education")));
+            employee.setEducation(/*Education.valueOf(*/jo.getString("education"));
         }
 
         if (jo.has("position")) {
-            employee.setPosition(Position.valueOf(jo.getString("education")));
+            employee.setPosition(/*Position.valueOf(*/jo.getString("education"));
         }
 
         if (jo.has("histories")) {
@@ -115,12 +117,35 @@ public class EmployeeService {
         return jo;
     }
 
-    public JSONObject getAllEmployees() {
-        JSONObject jo = new JSONObject();
+    public Map<String, ArrayList<String>> getAllEmployees() {
+        Map<String, ArrayList<String>> jo = new HashMap<String, ArrayList<String>>();
         employeeRepository.findAll().forEach((employee) -> {
+            ArrayList<String> params = new ArrayList<>();
             String name = employee.getName();
+            String middle_name = employee.getMiddleName();
+            if (middle_name == null) {
+                middle_name = "";
+            }
             String last_name = employee.getLastName();
-            jo.put(Long.toString(employee.getEmployeeId()), name + " " + last_name);
+            String phone_number = employee.getPhoneNumber();
+            if (phone_number == null) {
+                phone_number = "";
+            }
+            String email = employee.getEmail();
+            if (email == null) {
+                email = "";
+            }
+            String address = employee.getAddress();
+            if (address == null) {
+                address = "";
+            }
+            params.add(name);
+            params.add(middle_name);
+            params.add(last_name);
+            params.add(phone_number);
+            params.add(email);
+            params.add(address);
+            jo.put(Long.toString(employee.getEmployeeId()), params);
         });
         return jo;
     }
@@ -153,6 +178,15 @@ public class EmployeeService {
             jo.put(Long.toString(employee.getEmployeeId()), name + " " + last_name);
         });
         return jo;
+    }
+
+    public Boolean authen(String login, String passwd) {
+        Employee employee = employeeRepository.findEmployeeByLogin(login);
+        if (employee != null) {
+            return employee.getPassword().equals(passwd);
+        } else {
+            return false;
+        }
     }
 
 }

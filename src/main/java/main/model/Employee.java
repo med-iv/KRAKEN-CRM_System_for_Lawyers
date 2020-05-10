@@ -34,13 +34,13 @@ public class Employee implements Serializable {
     @Column(name = "Email", length = 50)
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "Education_level")
-    private Education education;
+    //@Enumerated(EnumType.STRING)
+    @Column(name = "Education_level", length = 50)
+    private String education;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "Position", nullable = false)
-    private Position position;
+    //@Enumerated(EnumType.STRING)
+    @Column(name = "Position", length = 50)
+    private String position;
 
     @Column(name = "Login", nullable = false, unique = true, length = 50)
     private String login;
@@ -59,8 +59,8 @@ public class Employee implements Serializable {
     }
 
     public Employee(long employee_id, String name, String middle_name, String last_name,
-                  String phone_number, String address, String email, Education education,
-                    Position position, String login, String password) {
+                  String phone_number, String address, String email, String education,
+                    String position, String login, String password) {
         this.employee_id = employee_id;
         this.name = name;
         this.middle_name = middle_name;
@@ -127,19 +127,19 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public Education getEducation() {
+    public String getEducation() {
         return education;
     }
 
-    public void setEducation(Education education) {
+    public void setEducation(String education) {
         this.education = education;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 

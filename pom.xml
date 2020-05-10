@@ -136,6 +136,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
             </plugin>
+            <!--plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.8.0</version>
+            </plugin-->
         </plugins>
     </build>
 
@@ -185,5 +190,10 @@
             <artifactId>json</artifactId>
             <version>20190722</version>
         </dependency>
+        <!-- thymeleaf -->
+        <!--dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency-->
     </dependencies>
 </project>
