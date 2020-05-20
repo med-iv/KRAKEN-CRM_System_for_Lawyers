@@ -1,3 +1,5 @@
+set DATESTYLE to DMY;
+
 INSERT INTO Employees (Employee_id, Name, Last_name, Position, Login, Password, User_role) VALUES
  (0, 'admin', 'admin', 'lawyer', 'admin', 'admin', 'ADMIN');
 
