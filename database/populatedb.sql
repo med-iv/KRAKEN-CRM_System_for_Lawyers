@@ -1,3 +1,7 @@
+INSERT INTO Employees (Employee_id, Name, Last_name, Position, Login, Password, User_role) VALUES
+ (0, 'admin', 'admin', 'lawyer', 'admin', 'admin', 'ADMIN');
+
+
 INSERT INTO Employees (Employee_id, Name, Last_name, Position, Login, Password) VALUES
  (1, 'Геральд', 'Ривов', 'lawyer', 'Vedmak', '65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5'),
  (2, 'Владимир', 'Иванов', 'lawyer', 'Ivanov', '3bced02e0341dad74c304d06c4c1f69efb9aab8c148b327bc71d7ec08e252a42'),
@@ -23,14 +27,14 @@ INSERT INTO Employees (Employee_id, Name, Last_name, Position, Login, Password) 
  (4, 'Александр', 'Шляпик', '');
 
 
- INSERT INTO History_clients (Client_id, Event_id) VALUES
+ INSERT INTO Clients_histories (clients_Client_id, histories_Event_id) VALUES
  (1, 2),
  (2, 2),
  (3, 1),
  (4, 3);
 
- INSERT INTO History_employees (Event_id, Employee_id) VALUES
+ INSERT INTO Employees_histories (histories_Event_id, employees_Employee_id) VALUES
  (1, 3),
  (2, 1),
- (4, 2);
+ (3, 2);
 
